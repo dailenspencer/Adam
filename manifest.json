@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+
+  "name": "Stock Analyzer Plugin",
+  "description": "This extension will analyze a stock based on news",
+  "version": "1.0",
+  "background": {
+    "scripts": [
+      "./client/dist/bundle.js"
+    ],
+    "persistent": true
+    },
+  "browser_action": {
+   "default_icon": "./client/public/media/graph.png",
+   "default_popup": "./client/index.html"
+  },
+  "permissions": [
+   "activeTab"
+   ]
+}
