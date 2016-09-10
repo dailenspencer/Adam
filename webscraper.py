@@ -1,7 +1,9 @@
-import csv
-import requests
-import urllib2
-from BeautifulSoup import BeautifulSoup
+import urlparse
+from bs4 import BeautifulSoup
+import cookielib, urllib2
+cj = cookielib.CookieJar()
+opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+from BeautifulSoup import BeautifulSoup, SoupStrainer
 import json
 from watson_developer_cloud import ToneAnalyzerV3
 
@@ -12,46 +14,46 @@ tone_analyzer = ToneAnalyzerV3(
     version='2016-02-11')
 
 
-articleCount = 0
+global fullText
+fullText = ""
 
-def marketWatchAnalysis():
-	baseUrl = 'http://www.marketwatch.com'
-	newsViewerUrl = baseUrl + '/newsviewer'
-	response = requests.get(newsViewerUrl)
-	html = response.content
-	soup = BeautifulSoup(html)
-	table = soup.find('div', attrs={'class': 'foreverblock'})
+def analysis(link):
+	request = urllib2.Request(link)
+	response = opener.open(request)
+	for link in BeautifulSoup(response, parseOnlyThese=SoupStrainer('a')):
+		if 'Apple' in link.text:
+			grabTextFromLink(link['href']);
+	
+def grabTextFromLink(link):
+	if is_absolute(link):
+		request = urllib2.Request(link)
+		response = opener.open(request)
+		for paragraph in BeautifulSoup(response, parseOnlyThese=SoupStrainer('p')):
+			global fullText;
+			fullText += paragraph.text;
 
-	analysisResults = []
-	fullText = ""
-	for listItem in table.findAll('li')[1:]:
-		for a in listItem.findAll('a', href=True):
-			if stockName in str(a):
-					articleCount++;
-					fullText += retrieveMarketWatchText(baseUrl + a['href'])
-
-	print json.dumps(tone_analyzer.tone(text=fullText), indent=2)
-	# print fullText
-
-
-def retrieveMarketWatchText(marketWatchArticleLink):
-	page = urllib2.urlopen(marketWatchArticleLink).read()
-	soup = BeautifulSoup(page)
-	articleBody = soup.find('div', attrs={'id':'article-body'})
-	fullText = ""
-	if articleBody:
-		for paragraph in articleBody.findAll('p')[1:]:
-			fullText += paragraph.text
-
-	if(fullText):
-		return fullText
-	else:
-		return ""
+	
+	
+def is_absolute(link):
+	return bool(urlparse.urlparse(link).netloc)
 	
 
 
-stockName = raw_input("Please enter something: ")
-marketWatchAnalysis()
+def extractTones(resultObj):
+	document_tone = resultObj["document_tone"];
+	tone_categories = document_tone["tone_categories"];
+	toneList = [tone_categories[0],tone_categories[1],tone_categories[2]]
+	return toneList
+
+
+
+
+analysis("http://www.nytimes.com/");
+watsonText = fullText
+resultStr = json.dumps(tone_analyzer.tone(text="hello there my name is Dailen!!!"), indent=2);
+resultObj = json.loads(resultStr);
+print extractTones(resultObj);
+
 
 
 

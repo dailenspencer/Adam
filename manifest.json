@@ -15,6 +15,6 @@
    "default_popup": "./client/index.html"
   },
   "permissions": [
-   "activeTab"
+   "http://localhost/*"
    ]
 }

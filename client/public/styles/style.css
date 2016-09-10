@@ -1,0 +1,38 @@
+body {
+	background-color: #3AC581;
+}
+#App {
+	width:230px;
+	height:290px;
+}
+#Main {
+	height: 100%;
+	display: flex;
+	flex-direction:column;
+	justify-content: space-around;
+	align-items:center;
+}
+#logoHolder {
+	width:100%;
+	display: flex;
+	justify-content:center;
+}
+#logo {
+	width:40px;
+	height:40px;
+	justify-content:center;
+}
+
+
+
+#Loader {
+	opacity:0.0;
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+#LoaderGif {
+	width:50px;
+	height:50px;
+}

@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "browser": {
+    "fs": false,
+    "child_process": false
+  },
   "scripts": {
     "build": "webpack --env.dev --watch",
     "webpack-watch": "./node_modules/webpack/bin/webpack.js -w",
@@ -12,11 +16,22 @@
     "start": "concurrently --kill-others \"npm run webpack-watch\" \"npm run express-server\" \"npm run scss-watch\""
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "connect": "^3.4.1",
+    "express": "^4.14.0",
+    "jquery": "^3.1.0",
+    "material-ui": "^0.15.4",
+    "nodemon": "^1.10.2",
+    "path": "^0.12.7",
+    "python-shell": "^0.4.0",
     "react": "^15.0.0",
     "react-dom": "^15.0.0-rc.1",
     "react-router": "^2.5.1",
+    "react-tap-event-plugin": "^1.0.0",
     "router": "^1.1.4",
-    "underscore": "^1.8.3"
+    "subprocess": "^0.3.0",
+    "underscore": "^1.8.3",
+    "util": "^0.10.3"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
