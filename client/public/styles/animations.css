@@ -27,3 +27,32 @@
     opacity: 0.0;
   }
 }
+
+.enlarge {
+  -webkit-animation: increaseSize 0.5s forwards ease-in-out;
+  animation: increaseSize 0.5s forwards ease-in-out;
+}
+
+@keyframes increaseSize {
+  0% {
+    width:230px;
+    height:290px;
+  }
+
+ 
+
+  100% {
+    width:375px;
+    height:800px;
+  }
+}
+
+
+
+
+#Anger, #Disgust, #Fear, #Joy, #Sadness, #Analytical, #Confident, #Tentative, #Openness, #Mindful, #Extrovert, #Agreeable, #EmotionalRange {
+  -webkit-transition: width 4.50s ease !important;
+  -moz-transition: width 4.50s ease !important;
+  -o-transition: width 4.50s ease !important;
+  transition: width 4.50s ease !important;
+ }

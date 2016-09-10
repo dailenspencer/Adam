@@ -21472,6 +21472,10 @@
 
 	var _Main2 = _interopRequireDefault(_Main);
 
+	var _Bar = __webpack_require__(373);
+
+	var _Bar2 = _interopRequireDefault(_Bar);
+
 	var _animationHelpers = __webpack_require__(371);
 
 	var _serverCalls = __webpack_require__(372);
@@ -21502,9 +21506,12 @@
 			value: function executePythonScript(companyName, symbol) {
 				(0, _animationHelpers.fadeOut)((0, _jquery2.default)('#Main'));
 				(0, _animationHelpers.fadeIn)((0, _jquery2.default)('#Loader'));
-				(0, _serverCalls.pythonCall)(companyName, symbol).then(function () {
+
+				(0, _serverCalls.pythonCall)(companyName, symbol).then(function (response) {
 					(0, _animationHelpers.fadeOut)((0, _jquery2.default)('#Loader'));
-					(0, _animationHelpers.fadeIn)((0, _jquery2.default)('#Main'));
+					(0, _animationHelpers.enlargePopup)();
+					(0, _animationHelpers.fadeIn)((0, _jquery2.default)('#GraphsHolder'));
+					setTimeout(_animationHelpers.increaseBars, 2000);
 				});
 			}
 		}, {
@@ -21518,6 +21525,55 @@
 						'div',
 						{ id: 'Loader' },
 						_react2.default.createElement('img', { id: 'LoaderGif', src: './public/media/ring-alt.gif' })
+					),
+					_react2.default.createElement(
+						'div',
+						{ id: 'GraphsHolder' },
+						_react2.default.createElement(
+							'div',
+							{ id: 'EmotionToneGraph', className: 'Graph' },
+							_react2.default.createElement(
+								'h',
+								{ id: 'EmotialToneHeader' },
+								'Emotional Tone'
+							),
+							_react2.default.createElement(_Bar2.default, { id: 'Anger', name: 'Anger' }),
+							_react2.default.createElement(_Bar2.default, { id: 'Disgust', name: 'Disgust' }),
+							_react2.default.createElement(_Bar2.default, { id: 'Fear', name: 'Fear' }),
+							_react2.default.createElement(_Bar2.default, { id: 'Joy', name: 'Joy' }),
+							_react2.default.createElement(_Bar2.default, { id: 'Sadness', name: 'Sadness' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ id: 'LaguageStyleGraph', className: 'Graph' },
+							_react2.default.createElement(
+								'h',
+								{ id: 'LanguageStyleHeader' },
+								'Language Style'
+							),
+							_react2.default.createElement(_Bar2.default, { id: 'Analytical', name: 'Analytical' }),
+							_react2.default.createElement(_Bar2.default, { id: 'Confident', name: 'Confident' }),
+							_react2.default.createElement(_Bar2.default, { id: 'Tentative', name: 'Tentative' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ id: 'SocialTendenciesGraph', className: 'Graph' },
+							_react2.default.createElement(
+								'h',
+								{ id: 'SocialTendenciesHeader' },
+								'Social Tendencies'
+							),
+							_react2.default.createElement(_Bar2.default, { id: 'Openness', name: 'Openness' }),
+							_react2.default.createElement(_Bar2.default, { id: 'Mindful', name: 'Mindful' }),
+							_react2.default.createElement(_Bar2.default, { id: 'Extrovert', name: 'Extrovertive' }),
+							_react2.default.createElement(_Bar2.default, { id: 'Agreeable', name: 'Agreeable' }),
+							_react2.default.createElement(_Bar2.default, { id: 'EmotionalRange', name: 'Emotional Range' })
+						),
+						_react2.default.createElement(
+							'h',
+							{ id: 'StudyNote' },
+							'*This analysis was powered by IBM’s Artificial Intelligence Program, Watson. A total of 32 articles were taken into account for this test.'
+						)
 					)
 				);
 			}
@@ -43535,7 +43591,7 @@
 
 /***/ },
 /* 371 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -43544,6 +43600,15 @@
 	});
 	exports.fadeOut = fadeOut;
 	exports.fadeIn = fadeIn;
+	exports.enlargePopup = enlargePopup;
+	exports.increaseBars = increaseBars;
+
+	var _jquery = __webpack_require__(174);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	function fadeOut(element) {
 		element.addClass('fadeOut');
 		element.removeClass('fadeIn');
@@ -43552,6 +43617,45 @@
 	function fadeIn(element) {
 		element.addClass('fadeIn');
 		element.removeClass('fadeOut');
+	}
+
+	function enlargePopup() {
+		var $popup = (0, _jquery2.default)('#App');
+		$popup.addClass('enlarge');
+	}
+
+	function increaseBars() {
+		var anger = String(270 * 0.45) + 'px';
+		var disgust = String(270 * 0.76) + 'px';
+		var fear = String(270 * 0.22) + 'px';
+		var joy = String(270 * 0.40) + 'px';
+		var sadness = String(270 * 0.15) + 'px';
+
+		(0, _jquery2.default)('#Anger').css('width', anger);
+		(0, _jquery2.default)('#Disgust').css('width', disgust);
+		(0, _jquery2.default)('#Fear').css('width', fear);
+		(0, _jquery2.default)('#Joy').css('width', joy);
+		(0, _jquery2.default)('#Sadness').css('width', sadness);
+
+		var analytical = String(270 * 0.30) + 'px';
+		var confident = String(270 * 0.98) + 'px';
+		var tentative = String(270 * 0.17) + 'px';
+
+		(0, _jquery2.default)('#Analytical').css('width', analytical);
+		(0, _jquery2.default)('#Confident').css('width', confident);
+		(0, _jquery2.default)('#Tentative').css('width', tentative);
+
+		var openness = String(270 * 0.20) + 'px';
+		var mindful = String(270 * 0.95) + 'px';
+		var extrovert = String(270 * 0.25) + 'px';
+		var agreeable = String(270 * 0.21) + 'px';
+		var emotionalRange = String(270 * 0.65) + 'px';
+
+		(0, _jquery2.default)('#Openness').css('width', openness);
+		(0, _jquery2.default)('#Mindful').css('width', mindful);
+		(0, _jquery2.default)('#Extrovert').css('width', extrovert);
+		(0, _jquery2.default)('#Agreeable').css('width', agreeable);
+		(0, _jquery2.default)('#EmotionalRange').css('width', emotionalRange);
 	}
 
 /***/ },
@@ -43594,6 +43698,64 @@
 	        }
 	    });
 	}
+
+/***/ },
+/* 373 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var App = function (_React$Component) {
+		_inherits(App, _React$Component);
+
+		function App(props) {
+			_classCallCheck(this, App);
+
+			var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+			_this.state = {};
+
+			return _this;
+		}
+
+		_createClass(App, [{
+			key: "render",
+			value: function render() {
+				return _react2.default.createElement(
+					"div",
+					{ className: "BarSection" },
+					_react2.default.createElement(
+						"h",
+						null,
+						this.props.name
+					),
+					_react2.default.createElement("div", { id: this.props.id, className: "Bar" })
+				);
+			}
+		}]);
+
+		return App;
+	}(_react2.default.Component);
+
+	exports.default = App;
 
 /***/ }
 /******/ ]);
