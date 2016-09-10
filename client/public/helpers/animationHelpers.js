@@ -15,8 +15,8 @@ export function enlargePopup(){
 	$popup.addClass('enlarge');
 }
 
-export function increaseBars(toneScores){
-	toneScores = JSON.parse(toneScores[0]).map(function(score){
+export function increaseBars(response){
+	var toneScores = JSON.parse(response[0]).map(function(score){
 		return score;
 	})
 	
@@ -54,4 +54,5 @@ export function increaseBars(toneScores){
 	$('#EmotionalRange').css('width',emotionalRange);
 
 
+	$('#StudyNote').text("*This analysis was powered by the IBM's Artificial Intelligence Program, Watson. A total of " + response[1] + " recently published articles were taken into account for this test");
 }

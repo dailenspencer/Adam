@@ -90,9 +90,9 @@ export default class Main extends React.Component {
 		      			onChange={this.handleSymbolFieldChange}
 	    			/>
 	    		</MuiThemeProvider>
-	    		<MuiThemeProvider>
-					<RaisedButton label="Go Ahead, Adam!" style={{'marginTop':'20px','fontFamily':'Raleway'}} onClick={() => this.props.executePythonScript(this.state.companyFieldText, this.state.symbolFieldText)}/>
-				</MuiThemeProvider>
+	    		<div id="searchHolder">
+					<img id="search" src="public/media/search.png" style={{'marginTop':'20px', 'width':'40px','height':'40px'}} onClick={() => this.props.executePythonScript(this.state.companyFieldText, this.state.symbolFieldText)}/>
+				</div>
 			</div>
 		);
 	}

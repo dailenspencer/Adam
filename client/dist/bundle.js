@@ -21508,6 +21508,10 @@
 				(0, _animationHelpers.fadeIn)((0, _jquery2.default)('#Loader'));
 
 				(0, _serverCalls.pythonCall)(companyName, symbol).then(function (response) {
+					if (response[0] === 'no text') {
+						//need to implement notification for user sayign we cant find data
+						return;
+					}
 					(0, _animationHelpers.fadeOut)((0, _jquery2.default)('#Loader'));
 					(0, _animationHelpers.enlargePopup)();
 					(0, _animationHelpers.fadeIn)((0, _jquery2.default)('#GraphsHolder'));
@@ -21517,7 +21521,8 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				var studyNote = "*This analysis was powered by the IBM's Artificial Intelligence Program, Watson. A total of 32 recently published articles were taken into account for this test";
+				"*This analysis was powered by the IBM's Artificial Intelligence Program, Watson. A total of 32 recently published articles were taken into account for this test";
+
 				return _react2.default.createElement(
 					'div',
 					{ id: 'App' },
@@ -21525,7 +21530,12 @@
 					_react2.default.createElement(
 						'div',
 						{ id: 'Loader' },
-						_react2.default.createElement('img', { id: 'LoaderGif', src: './public/media/ring-alt.gif' })
+						_react2.default.createElement('img', { id: 'LoaderGif', src: './public/media/ring-alt.gif' }),
+						_react2.default.createElement(
+							'p',
+							null,
+							'Cooking Soup...'
+						)
 					),
 					_react2.default.createElement(
 						'div',
@@ -21570,11 +21580,7 @@
 							_react2.default.createElement(_Bar2.default, { id: 'Agreeable', name: 'Agreeable' }),
 							_react2.default.createElement(_Bar2.default, { id: 'EmotionalRange', name: 'Emotional Range' })
 						),
-						_react2.default.createElement(
-							'h',
-							{ id: 'StudyNote' },
-							studyNote
-						)
+						_react2.default.createElement('h', { id: 'StudyNote' })
 					)
 				);
 			}
@@ -32448,9 +32454,9 @@
 						})
 					),
 					_react2.default.createElement(
-						_MuiThemeProvider2.default,
-						null,
-						_react2.default.createElement(_RaisedButton2.default, { label: 'Go Ahead, Adam!', style: { 'marginTop': '20px', 'fontFamily': 'Raleway' }, onClick: function onClick() {
+						'div',
+						{ id: 'searchHolder' },
+						_react2.default.createElement('img', { id: 'search', src: 'public/media/search.png', style: { 'marginTop': '20px', 'width': '40px', 'height': '40px' }, onClick: function onClick() {
 								return _this2.props.executePythonScript(_this2.state.companyFieldText, _this2.state.symbolFieldText);
 							} })
 					)
@@ -43625,8 +43631,8 @@
 		$popup.addClass('enlarge');
 	}
 
-	function increaseBars(toneScores) {
-		toneScores = JSON.parse(toneScores[0]).map(function (score) {
+	function increaseBars(response) {
+		var toneScores = JSON.parse(response[0]).map(function (score) {
 			return score;
 		});
 
@@ -43661,6 +43667,8 @@
 		(0, _jquery2.default)('#Extrovert').css('width', extrovert);
 		(0, _jquery2.default)('#Agreeable').css('width', agreeable);
 		(0, _jquery2.default)('#EmotionalRange').css('width', emotionalRange);
+
+		(0, _jquery2.default)('#StudyNote').text("*This analysis was powered by the IBM's Artificial Intelligence Program, Watson. A total of " + response[1] + " recently published articles were taken into account for this test");
 	}
 
 /***/ },

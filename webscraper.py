@@ -6,6 +6,7 @@ opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 from BeautifulSoup import BeautifulSoup, SoupStrainer
 import json, ast
 from watson_developer_cloud import ToneAnalyzerV3
+import sys
 
 
 tone_analyzer = ToneAnalyzerV3(
@@ -15,13 +16,17 @@ tone_analyzer = ToneAnalyzerV3(
 
 
 global fullText
+global articleCount
 fullText = ""
+articleCount = 0
 
-def analysis(link):
+def analysis(link, companyName):
 	request = urllib2.Request(link)
 	response = opener.open(request)
 	for link in BeautifulSoup(response, parseOnlyThese=SoupStrainer('a')):
-		if 'Apple' in link.text:
+		if companyName in link.text:
+			global articleCount
+			articleCount += 1
 			grabTextFromLink(link['href']);
 	
 def grabTextFromLink(link):
@@ -64,11 +69,24 @@ def extractTones(resultObj):
 
 
 
-analysis("http://www.nytimes.com/");
-watsonText = fullText
-resultStr = json.dumps(tone_analyzer.tone(text="hello there my name is Dailen!!!"), indent=2);
-resultObj = json.loads(resultStr);
-print extractTones(resultObj);
+if len(sys.argv) > 1:
+    analysis("http://www.nytimes.com/", sys.argv[1]);
+    watsonText = fullText;
+    
+    if watsonText == '':
+    	print 'no text';
+    else :
+    	resultStr = json.dumps(tone_analyzer.tone(text=watsonText), indent=2);
+    	resultObj = json.loads(resultStr);
+    	print extractTones(resultObj);
+    	print articleCount
+
+    
+    
+    
+    
+    
+
 
 
 

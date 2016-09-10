@@ -22,6 +22,10 @@ export default class App extends React.Component {
 		fadeIn($('#Loader'));
 		
 		pythonCall(companyName, symbol).then(function(response){
+			if(response[0] === 'no text'){
+				//need to implement notification for user sayign we cant find data
+				return
+			}
 			fadeOut($('#Loader'));
 			enlargePopup()
 			fadeIn($('#GraphsHolder'));
@@ -30,12 +34,13 @@ export default class App extends React.Component {
 	}
 
 	render() {
-		var studyNote = "*This analysis was powered by the IBM's Artificial Intelligence Program, Watson. A total of 32 recently published articles were taken into account for this test"
+		"*This analysis was powered by the IBM's Artificial Intelligence Program, Watson. A total of 32 recently published articles were taken into account for this test"
 		return (
 			<div id="App">
 				<Main executePythonScript={this.executePythonScript}/>
 				<div id="Loader">
 					<img id="LoaderGif" src="./public/media/ring-alt.gif"/>
+					<p>Cooking Soup...</p>
 				</div>
 				<div id="GraphsHolder">
 					<div id="EmotionToneGraph" className="Graph">
@@ -60,7 +65,7 @@ export default class App extends React.Component {
 						<Bar id="Agreeable" name="Agreeable"/>
 						<Bar id="EmotionalRange" name="Emotional Range"/>
 					</div>
-					<h id="StudyNote">{studyNote}</h>
+					<h id="StudyNote"></h>
 				</div>
 			</div>
 		);

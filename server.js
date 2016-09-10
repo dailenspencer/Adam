@@ -32,17 +32,20 @@ app.post('*', function(req, res){
 
 
 var pyshell = new PythonShell('webscraper.py');
-var options = {
-  mode: 'text',
-  pythonPath: 'webscaper.py',
-  pythonOptions: ['-u'],
-  scriptPath: 'webscraper.py',
-  args: ['value1', 'value2', 'value3']
-};
+
+// var options = {
+// 	  mode: 'text',
+// 	  pythonPath: 'webscaper.py',
+// 	  pythonOptions: ['-u'],
+// 	  scriptPath: 'webscraper.py',
+// 	  args: [companyName,symbol]
+// 	};
+
 function executePythonScript(companyName, symbol,res){
-	PythonShell.run('webscraper.py', {}, function (err, results) {
+	
+	PythonShell.run('webscraper.py', {args: [companyName,symbol]}, function (err, results) {
 	  if (err) throw err;
-	  console.log('results: %j', results);
+	  console.log(results);
 	  res.send(results);
 	});
 	

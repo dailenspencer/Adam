@@ -21,6 +21,15 @@ body {
 	width:40px;
 	height:40px;
 	justify-content:center;
+	animation: 3500ms pulse 1500ms ease-in-out infinite;
+    -webkit-animation: 3500ms pulse 1500ms ease-in-out infinite;
+}
+
+#searchHolder {
+	cursor: pointer;
+	animation: 3500ms oppositePulse 1500ms ease-in-out infinite;
+    -webkit-animation: 3500ms oppositePulse 1500ms ease-in-out infinite;
+
 }
 
 
@@ -31,10 +40,19 @@ body {
 	left:50%;
 	top:50%;
 	transform: translateX(-50%) translateY(-50%);
+	display: flex;
+	flex-direction:column;
+	justify-content:center;
+	align-items:center;
+	width: 100%;
 }
 #LoaderGif {
 	width:50px;
 	height:50px;
+}
+
+#Loader p{
+	color:white;
 }
 
 
