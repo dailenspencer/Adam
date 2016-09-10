@@ -21504,6 +21504,7 @@
 		_createClass(App, [{
 			key: 'executePythonScript',
 			value: function executePythonScript(companyName, symbol) {
+
 				(0, _animationHelpers.fadeOut)((0, _jquery2.default)('#Main'));
 				(0, _animationHelpers.fadeIn)((0, _jquery2.default)('#Loader'));
 
@@ -21515,17 +21516,27 @@
 					(0, _animationHelpers.fadeOut)((0, _jquery2.default)('#Loader'));
 					(0, _animationHelpers.enlargePopup)();
 					(0, _animationHelpers.fadeIn)((0, _jquery2.default)('#GraphsHolder'));
+					(0, _animationHelpers.fadeIn)((0, _jquery2.default)('#BackButton'));
 					setTimeout((0, _animationHelpers.increaseBars)(response), 2000);
 				});
 			}
 		}, {
+			key: 'handleClose',
+			value: function handleClose() {
+				window.close();
+			}
+		}, {
 			key: 'render',
 			value: function render() {
-				"*This analysis was powered by the IBM's Artificial Intelligence Program, Watson. A total of 32 recently published articles were taken into account for this test";
 
 				return _react2.default.createElement(
 					'div',
 					{ id: 'App' },
+					_react2.default.createElement(
+						'div',
+						{ id: 'BackButton', onClick: this.handleClose },
+						_react2.default.createElement('img', { src: './public/media/error.png' })
+					),
 					_react2.default.createElement(_Main2.default, { executePythonScript: this.executePythonScript }),
 					_react2.default.createElement(
 						'div',
@@ -32356,10 +32367,13 @@
 
 			_this.state = {
 				companyFieldText: '',
-				symbolFieldText: ''
+				companyFieldErrorTex: '',
+				symbolFieldText: '',
+				symbolFieldErrorText: ''
 			};
 			_this.handleCompanyFieldChange = _this.handleCompanyFieldChange.bind(_this);
 			_this.handleSymbolFieldChange = _this.handleSymbolFieldChange.bind(_this);
+			_this.handleClick = _this.handleClick.bind(_this);
 			return _this;
 		}
 
@@ -32372,6 +32386,23 @@
 			key: 'handleSymbolFieldChange',
 			value: function handleSymbolFieldChange(e) {
 				this.setState({ symbolFieldText: e.target.value });
+			}
+		}, {
+			key: 'handleClick',
+			value: function handleClick() {
+				if (this.state.companyFieldText.length === 0) {
+					this.setState({ companyFieldErrorText: 'Please Enter Company Name' });
+					return;
+				} else {
+					this.setState({ companyFieldErrorText: '' });
+				}
+				if (this.state.symbolFieldText.length === 0) {
+					this.setState({ symbolFieldErrorText: 'Please Enter Stock Symbol' });
+					return;
+				} else {
+					this.setState({ symbolFieldErrorText: '' });
+				}
+				this.props.executePythonScript(this.state.companyFieldText, this.state.symbolFieldText);
 			}
 		}, {
 			key: 'render',
@@ -32435,7 +32466,8 @@
 							errorStyle: styles.errorStyle,
 							inputStyle: styles.inputStyle,
 							underlineFocusStyle: styles.underlineStyle,
-							onChange: this.handleCompanyFieldChange
+							onChange: this.handleCompanyFieldChange,
+							errorText: this.state.companyFieldErrorText
 						})
 					),
 					_react2.default.createElement(
@@ -32450,14 +32482,15 @@
 							errorStyle: styles.errorStyle,
 							inputStyle: styles.inputStyle,
 							underlineFocusStyle: styles.underlineStyle,
-							onChange: this.handleSymbolFieldChange
+							onChange: this.handleSymbolFieldChange,
+							errorText: this.state.symbolFieldErrorText
 						})
 					),
 					_react2.default.createElement(
 						'div',
 						{ id: 'searchHolder' },
 						_react2.default.createElement('img', { id: 'search', src: 'public/media/search.png', style: { 'marginTop': '20px', 'width': '40px', 'height': '40px' }, onClick: function onClick() {
-								return _this2.props.executePythonScript(_this2.state.companyFieldText, _this2.state.symbolFieldText);
+								return _this2.handleClick();
 							} })
 					)
 				);

@@ -7,10 +7,13 @@ export default class Main extends React.Component {
 		super(props);
 		this.state = {
 			companyFieldText : '',
-			symbolFieldText : ''
+			companyFieldErrorTex : '',
+			symbolFieldText : '',
+			symbolFieldErrorText : ''
 		}
 		this.handleCompanyFieldChange = this.handleCompanyFieldChange.bind(this);
 		this.handleSymbolFieldChange = this.handleSymbolFieldChange.bind(this);
+		this.handleClick = this.handleClick.bind(this);
 	}
 
 	handleCompanyFieldChange(e){
@@ -19,6 +22,22 @@ export default class Main extends React.Component {
 
 	handleSymbolFieldChange(e){
 		this.setState({symbolFieldText: e.target.value})
+	}
+
+	handleClick(){
+		if(this.state.companyFieldText.length === 0){
+			this.setState({companyFieldErrorText: 'Please Enter Company Name'})
+			return;
+		} else {
+			this.setState({companyFieldErrorText: ''})
+		}
+		if(this.state.symbolFieldText.length === 0){
+			this.setState({symbolFieldErrorText: 'Please Enter Stock Symbol'})
+			return;
+		} else {
+			this.setState({symbolFieldErrorText: ''})
+		}
+		this.props.executePythonScript(this.state.companyFieldText, this.state.symbolFieldText)
 	}
 	
 	render() {
@@ -75,6 +94,7 @@ export default class Main extends React.Component {
 		      			inputStyle = {styles.inputStyle}
 		      			underlineFocusStyle={styles.underlineStyle}
 		      			onChange={this.handleCompanyFieldChange}
+		      			errorText={this.state.companyFieldErrorText}
 	    			/>
   				</MuiThemeProvider>
   				<MuiThemeProvider>
@@ -88,10 +108,11 @@ export default class Main extends React.Component {
 		      			inputStyle = {styles.inputStyle}
 		      			underlineFocusStyle={styles.underlineStyle}
 		      			onChange={this.handleSymbolFieldChange}
+		      			errorText={this.state.symbolFieldErrorText}
 	    			/>
 	    		</MuiThemeProvider>
 	    		<div id="searchHolder">
-					<img id="search" src="public/media/search.png" style={{'marginTop':'20px', 'width':'40px','height':'40px'}} onClick={() => this.props.executePythonScript(this.state.companyFieldText, this.state.symbolFieldText)}/>
+					<img id="search" src="public/media/search.png" style={{'marginTop':'20px', 'width':'40px','height':'40px'}} onClick={() => this.handleClick()}/>
 				</div>
 			</div>
 		);

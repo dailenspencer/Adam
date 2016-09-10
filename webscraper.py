@@ -24,7 +24,7 @@ def analysis(link, companyName):
 	request = urllib2.Request(link)
 	response = opener.open(request)
 	for link in BeautifulSoup(response, parseOnlyThese=SoupStrainer('a')):
-		if companyName in link.text:
+		if (companyName.lower() in link.text) or (companyName.upper() in link.text) or (companyName.capitalize() in link.text):
 			global articleCount
 			articleCount += 1
 			grabTextFromLink(link['href']);

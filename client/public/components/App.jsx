@@ -18,6 +18,7 @@ export default class App extends React.Component {
 	}
 	
 	executePythonScript(companyName, symbol){
+
 		fadeOut($('#Main'));
 		fadeIn($('#Loader'));
 		
@@ -29,20 +30,28 @@ export default class App extends React.Component {
 			fadeOut($('#Loader'));
 			enlargePopup()
 			fadeIn($('#GraphsHolder'));
+			fadeIn($('#BackButton'));
 			setTimeout(increaseBars(response), 2000);
 		})
 	}
+	handleClose(){
+		window.close();
+	}
 
 	render() {
-		"*This analysis was powered by the IBM's Artificial Intelligence Program, Watson. A total of 32 recently published articles were taken into account for this test"
+		
 		return (
 			<div id="App">
+				<div id="BackButton" onClick={this.handleClose}>
+					<img src="./public/media/error.png"/>
+				</div>
 				<Main executePythonScript={this.executePythonScript}/>
 				<div id="Loader">
 					<img id="LoaderGif" src="./public/media/ring-alt.gif"/>
 					<p>Cooking Soup...</p>
 				</div>
 				<div id="GraphsHolder">
+
 					<div id="EmotionToneGraph" className="Graph">
 						<h id="EmotialToneHeader">Emotional Tone</h>
 						<Bar id="Anger" name="Anger"/>

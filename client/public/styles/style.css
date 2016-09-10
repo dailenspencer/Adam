@@ -45,6 +45,7 @@ body {
 	justify-content:center;
 	align-items:center;
 	width: 100%;
+	z-index: -50;
 }
 #LoaderGif {
 	width:50px;
@@ -67,7 +68,7 @@ body {
 	height: 800px;
 	display: flex;
 	flex-direction:column;
-	justify-content: space-between;
+	justify-content: space-around;
 
 }
 
@@ -81,6 +82,31 @@ body {
 	color:white;
 	font-family: 'Raleway';
 	font-size:22px;
+}
+
+#BackButton {
+	opacity:0.0;
+	position:absolute;
+	top:0px;
+	right:0px;
+	width:50px;
+	height:50px;
+	display: flex;
+	justify-content:center;
+	align-items:center;
+	margin-top:10px;
+	cursor:pointer;
+	z-index:150;
+}
+
+#BackButton img {
+	width:25px;
+	height:25px;
+	-webkit-transform: rotate(90deg);     /* Chrome and other webkit browsers */
+  -moz-transform: rotate(90deg);        /* FF */
+  -o-transform: rotate(90deg);          /* Opera */
+  -ms-transform: rotate(90deg);         /* IE9 */
+  transform: rotate(90deg);
 }
 
 .BarSection {
