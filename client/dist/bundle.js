@@ -21502,6 +21502,14 @@
 		}
 
 		_createClass(App, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				window.addEventListener('scroll', function () {
+					console.log('scroll');
+					(0, _jquery2.default)('#DownArrow').fadeOut();
+				});
+			}
+		}, {
 			key: 'executePythonScript',
 			value: function executePythonScript(companyName, symbol) {
 
@@ -21590,6 +21598,11 @@
 							_react2.default.createElement(_Bar2.default, { id: 'Extrovert', name: 'Extrovertive' }),
 							_react2.default.createElement(_Bar2.default, { id: 'Agreeable', name: 'Agreeable' }),
 							_react2.default.createElement(_Bar2.default, { id: 'EmotionalRange', name: 'Emotional Range' })
+						),
+						_react2.default.createElement(
+							'div',
+							{ id: 'DownArrow' },
+							_react2.default.createElement('img', { src: './public/media/download.png' })
 						),
 						_react2.default.createElement('h', { id: 'StudyNote' })
 					)

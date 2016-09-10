@@ -16,6 +16,13 @@ export default class App extends React.Component {
 		}
 		
 	}
+
+	componentDidMount(){
+		window.addEventListener('scroll', function(){
+			console.log('scroll');
+			$('#DownArrow').fadeOut();
+		})
+	}
 	
 	executePythonScript(companyName, symbol){
 
@@ -73,6 +80,9 @@ export default class App extends React.Component {
 						<Bar id="Extrovert" name="Extrovertive"/>
 						<Bar id="Agreeable" name="Agreeable"/>
 						<Bar id="EmotionalRange" name="Emotional Range"/>
+					</div>
+					<div id="DownArrow">
+						<img src="./public/media/download.png"/>
 					</div>
 					<h id="StudyNote"></h>
 				</div>
