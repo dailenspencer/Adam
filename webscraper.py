@@ -4,7 +4,7 @@ import cookielib, urllib2
 cj = cookielib.CookieJar()
 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 from BeautifulSoup import BeautifulSoup, SoupStrainer
-import json
+import json, ast
 from watson_developer_cloud import ToneAnalyzerV3
 
 
@@ -42,8 +42,24 @@ def is_absolute(link):
 def extractTones(resultObj):
 	document_tone = resultObj["document_tone"];
 	tone_categories = document_tone["tone_categories"];
-	toneList = [tone_categories[0],tone_categories[1],tone_categories[2]]
-	return toneList
+	anger = tone_categories[0]["tones"][0]["score"]
+	disgust = tone_categories[0]["tones"][1]["score"]
+	fear = tone_categories[0]["tones"][2]["score"]
+	joy = tone_categories[0]["tones"][3]["score"]
+	sadness = tone_categories[0]["tones"][4]["score"]
+
+	analytical = tone_categories[1]["tones"][0]["score"]
+	confident = tone_categories[1]["tones"][1]["score"]
+	tentative = tone_categories[1]["tones"][2]["score"]
+
+	openness = tone_categories[2]["tones"][0]["score"]
+	mindful = tone_categories[2]["tones"][1]["score"]
+	extrovertive = tone_categories[2]["tones"][2]["score"]
+	agreeable = tone_categories[2]["tones"][3]["score"]
+	emotionalRange = tone_categories[2]["tones"][4]["score"]
+	
+	toneScores = [anger,disgust,fear,joy,sadness, analytical,confident,tentative,openness,mindful,extrovertive,agreeable,emotionalRange]
+	return toneScores
 
 
 

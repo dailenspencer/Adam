@@ -25,11 +25,12 @@ export default class App extends React.Component {
 			fadeOut($('#Loader'));
 			enlargePopup()
 			fadeIn($('#GraphsHolder'));
-			setTimeout(increaseBars, 2000);
+			setTimeout(increaseBars(response), 2000);
 		})
 	}
 
 	render() {
+		var studyNote = "*This analysis was powered by the IBM's Artificial Intelligence Program, Watson. A total of 32 recently published articles were taken into account for this test"
 		return (
 			<div id="App">
 				<Main executePythonScript={this.executePythonScript}/>
@@ -59,7 +60,7 @@ export default class App extends React.Component {
 						<Bar id="Agreeable" name="Agreeable"/>
 						<Bar id="EmotionalRange" name="Emotional Range"/>
 					</div>
-					<h id="StudyNote">*This analysis was powered by IBM’s Artificial Intelligence Program, Watson. A total of 32 articles were taken into account for this test.</h>
+					<h id="StudyNote">{studyNote}</h>
 				</div>
 			</div>
 		);

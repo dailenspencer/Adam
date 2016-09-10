@@ -21511,12 +21511,13 @@
 					(0, _animationHelpers.fadeOut)((0, _jquery2.default)('#Loader'));
 					(0, _animationHelpers.enlargePopup)();
 					(0, _animationHelpers.fadeIn)((0, _jquery2.default)('#GraphsHolder'));
-					setTimeout(_animationHelpers.increaseBars, 2000);
+					setTimeout((0, _animationHelpers.increaseBars)(response), 2000);
 				});
 			}
 		}, {
 			key: 'render',
 			value: function render() {
+				var studyNote = "*This analysis was powered by the IBM's Artificial Intelligence Program, Watson. A total of 32 recently published articles were taken into account for this test";
 				return _react2.default.createElement(
 					'div',
 					{ id: 'App' },
@@ -21572,7 +21573,7 @@
 						_react2.default.createElement(
 							'h',
 							{ id: 'StudyNote' },
-							'*This analysis was powered by IBM’s Artificial Intelligence Program, Watson. A total of 32 articles were taken into account for this test.'
+							studyNote
 						)
 					)
 				);
@@ -43624,12 +43625,16 @@
 		$popup.addClass('enlarge');
 	}
 
-	function increaseBars() {
-		var anger = String(270 * 0.45) + 'px';
-		var disgust = String(270 * 0.76) + 'px';
-		var fear = String(270 * 0.22) + 'px';
-		var joy = String(270 * 0.40) + 'px';
-		var sadness = String(270 * 0.15) + 'px';
+	function increaseBars(toneScores) {
+		toneScores = JSON.parse(toneScores[0]).map(function (score) {
+			return score;
+		});
+
+		var anger = String(270 * toneScores[0]) + 'px';
+		var disgust = String(270 * toneScores[1]) + 'px';
+		var fear = String(270 * toneScores[2]) + 'px';
+		var joy = String(270 * toneScores[3]) + 'px';
+		var sadness = String(270 * toneScores[4]) + 'px';
 
 		(0, _jquery2.default)('#Anger').css('width', anger);
 		(0, _jquery2.default)('#Disgust').css('width', disgust);
@@ -43637,19 +43642,19 @@
 		(0, _jquery2.default)('#Joy').css('width', joy);
 		(0, _jquery2.default)('#Sadness').css('width', sadness);
 
-		var analytical = String(270 * 0.30) + 'px';
-		var confident = String(270 * 0.98) + 'px';
-		var tentative = String(270 * 0.17) + 'px';
+		var analytical = String(270 * toneScores[5]) + 'px';
+		var confident = String(270 * toneScores[6]) + 'px';
+		var tentative = String(270 * toneScores[7]) + 'px';
 
 		(0, _jquery2.default)('#Analytical').css('width', analytical);
 		(0, _jquery2.default)('#Confident').css('width', confident);
 		(0, _jquery2.default)('#Tentative').css('width', tentative);
 
-		var openness = String(270 * 0.20) + 'px';
-		var mindful = String(270 * 0.95) + 'px';
-		var extrovert = String(270 * 0.25) + 'px';
-		var agreeable = String(270 * 0.21) + 'px';
-		var emotionalRange = String(270 * 0.65) + 'px';
+		var openness = String(270 * toneScores[8]) + 'px';
+		var mindful = String(270 * toneScores[9]) + 'px';
+		var extrovert = String(270 * toneScores[10]) + 'px';
+		var agreeable = String(270 * toneScores[11]) + 'px';
+		var emotionalRange = String(270 * toneScores[12]) + 'px';
 
 		(0, _jquery2.default)('#Openness').css('width', openness);
 		(0, _jquery2.default)('#Mindful').css('width', mindful);
@@ -43690,8 +43695,7 @@
 	            contentType: 'application/json'
 	        },
 	        success: function success(data) {
-	            console.log('Success');
-	            console.log(data);
+	            return JSON.parse(data[0]);
 	        },
 	        error: function error() {
 	            console.log('We are sorry but our servers are having an issue right now');

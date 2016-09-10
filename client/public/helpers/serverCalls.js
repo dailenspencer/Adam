@@ -15,8 +15,7 @@ export function pythonCall(companyName, symbol){
       contentType: 'application/json'
     }, 
     success: function (data) {
-        console.log('Success');
-        console.log(data);
+        return JSON.parse(data[0]);
     },  
     error: function () {
         console.log('We are sorry but our servers are having an issue right now');
