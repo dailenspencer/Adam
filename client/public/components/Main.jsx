@@ -111,6 +111,7 @@ export default class Main extends React.Component {
 		      			errorText={this.state.symbolFieldErrorText}
 	    			/>
 	    		</MuiThemeProvider>
+	    		<h id="NoResultHeader"></h>
 	    		<div id="searchHolder">
 					<img id="search" src="public/media/search.png" style={{'marginTop':'20px', 'width':'40px','height':'40px'}} onClick={() => this.handleClick()}/>
 				</div>

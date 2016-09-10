@@ -25,6 +25,11 @@ body {
     -webkit-animation: 3500ms pulse 1500ms ease-in-out infinite;
 }
 
+#NoResultHeader {
+	text-align: center;
+	color:white;
+}
+
 #searchHolder {
 	cursor: pointer;
 	animation: 3500ms oppositePulse 1500ms ease-in-out infinite;

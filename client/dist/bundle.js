@@ -21517,11 +21517,13 @@
 				(0, _animationHelpers.fadeIn)((0, _jquery2.default)('#Loader'));
 
 				(0, _serverCalls.pythonCall)(companyName, symbol).then(function (response) {
+					(0, _animationHelpers.fadeOut)((0, _jquery2.default)('#Loader'));
 					if (response[0] === 'no text') {
 						//need to implement notification for user sayign we cant find data
+						(0, _jquery2.default)('#NoResultHeader').text("*Sorry, there were no results returned for that search");
+						(0, _animationHelpers.fadeIn)((0, _jquery2.default)('#Main'));
 						return;
 					}
-					(0, _animationHelpers.fadeOut)((0, _jquery2.default)('#Loader'));
 					(0, _animationHelpers.enlargePopup)();
 					(0, _animationHelpers.fadeIn)((0, _jquery2.default)('#GraphsHolder'));
 					(0, _animationHelpers.fadeIn)((0, _jquery2.default)('#BackButton'));
@@ -32499,6 +32501,7 @@
 							errorText: this.state.symbolFieldErrorText
 						})
 					),
+					_react2.default.createElement('h', { id: 'NoResultHeader' }),
 					_react2.default.createElement(
 						'div',
 						{ id: 'searchHolder' },

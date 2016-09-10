@@ -30,11 +30,13 @@ export default class App extends React.Component {
 		fadeIn($('#Loader'));
 		
 		pythonCall(companyName, symbol).then(function(response){
+			fadeOut($('#Loader'));
 			if(response[0] === 'no text'){
 				//need to implement notification for user sayign we cant find data
+				$('#NoResultHeader').text("*Sorry, there were no results returned for that search")
+				fadeIn($('#Main'));
 				return
 			}
-			fadeOut($('#Loader'));
 			enlargePopup()
 			fadeIn($('#GraphsHolder'));
 			fadeIn($('#BackButton'));
