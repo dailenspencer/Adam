@@ -43740,7 +43740,7 @@
 	function pythonCall(companyName, symbol) {
 	    return _jquery2.default.ajax({
 	        type: 'post',
-	        url: "http://localhost:8084",
+	        url: "http://ec2-52-44-119-179.compute-1.amazonaws.com:8084/",
 	        data: {
 	            'companyName': companyName,
 	            'symbol': symbol
@@ -43748,9 +43748,7 @@
 	        xhrFields: {
 	            withCredentials: false
 	        },
-	        headers: {
-	            contentType: 'application/json'
-	        },
+	        headers: {},
 	        success: function success(data) {
 	            return JSON.parse(data[0]);
 	        },

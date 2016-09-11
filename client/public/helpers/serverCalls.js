@@ -3,7 +3,7 @@ import $ from 'jquery';
 export function pythonCall(companyName, symbol){
   return $.ajax({
     type: 'post',
-    url: "http://localhost:8084",   
+    url: "http://ec2-52-44-119-179.compute-1.amazonaws.com:8084/",   
     data: {
       'companyName':companyName,
       'symbol': symbol
@@ -12,7 +12,7 @@ export function pythonCall(companyName, symbol){
         withCredentials: false
     },  
     headers: {
-      contentType: 'application/json'
+      
     }, 
     success: function (data) {
         return JSON.parse(data[0]);
