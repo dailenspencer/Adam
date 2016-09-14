@@ -25,7 +25,6 @@ app.post('*', function(req, res){
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS');
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
 	var analysis = executePythonScript(req.body.companyName, req.body.symbol,res);
 	
 })

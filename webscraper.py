@@ -71,6 +71,17 @@ def extractTones(resultObj):
 
 if len(sys.argv) > 1:
     analysis("http://www.nytimes.com/", sys.argv[1]);
+    analysis("http://www.huffingtonpost.com/", sys.argv[1]);
+    analysis("http://www.bloomberg.com/", sys.argv[1]);
+    analysis("http://www.marketwatch.com/", sys.argv[1]);
+    analysis("https://www.scutify.com/", sys.argv[1]);
+    analysis("http://seekingalpha.com/", sys.argv[1]);
+    analysis("http://www.reuters.com/news/technology", sys.argv[1]);
+    analysis("http://www.reuters.com/finance/markets", sys.argv[1]);
+    analysis("http://www.investopedia.com/", sys.argv[1]);
+
+
+
     watsonText = fullText;
     
     if watsonText == '':
